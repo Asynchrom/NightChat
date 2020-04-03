@@ -22,8 +22,8 @@ setInterval(() => {
     clock.seconds = now.getSeconds();
     if(clock.hours < 9 || clock.hours > 20) clock.timeOk = true;
     else {
-        //firebase.auth().signOut();
-        clock.timeOk = true;
+        firebase.auth().signOut();
+        clock.timeOk = false;
     }
     if(clock.time++%30 == 0){
         updatePoints()
