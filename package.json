@@ -1,5 +1,5 @@
 {
-  "name": "nightchat",
+  "name": "night-chat",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,18 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.4.4",
-    "moment": "^2.24.0",
-    "vue": "^2.6.10",
-    "vue-chat-scroll": "^1.3.6",
-    "vue-router": "^3.1.3",
-    "vuex": "^3.1.2"
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-router": "^4.1.0",
-    "@vue/cli-plugin-vuex": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-router": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "vue-template-compiler": "^2.6.11"
   }
 }

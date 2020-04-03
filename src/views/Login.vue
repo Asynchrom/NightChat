@@ -1,81 +1,61 @@
 <template>
-  <div>
-    <div class="lheader">
-      <img src="@/assets/logo.png">
+  <div class="container login">
+    <div class="col-md-auto">
+      <main>
+        <h1>Login</h1>
+        <p v-if="disable">
+          <strong>Processing...</strong>
+        </p>
+        <p v-else-if="errorMessage" class="text-danger">
+          <strong>{{errorMessage}}</strong>
+        </p>
+        <p>
+          Email:
+          <br />
+          <input v-bind:disabled="disable" v-on:keyup.enter="login" type="text" v-model="email" />
+        </p>
+        <p>
+          Password:
+          <br />
+          <input v-bind:disabled="disable" v-on:keyup.enter="login" type="password" v-model="password" />
+        </p>
+        <p><router-link :to="{ name: 'Signup' }">I don't have an account</router-link></p>
+        <button v-bind:disabled="disable" class="btn btn-primary" v-on:click="login">Submit</button>
+      </main>
     </div>
-    <div class="outer-box">
-      <div class="register">
-        <h1 class="logreg-header">Login<br><hr size="5"></h1>
-        <div v-if="error">{{ error }} <br><br></div>
-        <form @submit.prevent="pressed">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" v-model="email" ria-describedby="emailHelp">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" v-model="password">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    </div>
-    <p class="clickable" @click="toRegister">New to this site? Register here!</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
   data() {
     return {
+      disable: false,
       email: "",
-      password: '',
-      error: ''
-    }
+      password: "",
+      errorMessage: ""
+    };
   },
+
   methods: {
-    async pressed() {
-      try{
-        await firebase.auth().signInWithEmailAndPassword(this.email,this.password);
-        this.$router.replace({name: "home"});
-      }catch(err){
-        console.log(err)
-        this.error = err;
-      }
-    },
-    toRegister() {
-      this.$router.replace({name: "register"});
+    login() {
+      this.disable = true;
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .catch(error => {
+          this.errorMessage = error;
+          this.disable = false;
+        });
     }
   }
-}
+};
 </script>
 
 <style>
-.lheader {
-  padding: 100px 0px 25px 0px;
+.login {
+  max-width: 500px;
+  text-align: center;
+  margin-top: 13%;
 }
-.clickable:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-hr {
-  border: 1px solid #d6d6d6;
-
-}
-.outer-box {
-  background-color: rgba(24, 29, 41, 10);
-  border-radius: 25px;
-  padding:40px;
-  max-width: 350px;
-  margin: auto;
-
-}
-.logreg-header{
-  margin-bottom: 30px
-}
- .register, p {
-   max-width: 300px;
-   margin: auto;
- }
 </style>

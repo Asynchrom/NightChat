@@ -1,68 +1,53 @@
 <template>
-  <div class="home">
-    <div id="header">
-      <img src="@/assets/logo.png">
-    </div>
-    <div>
-      <div v-if="userName" class="btn btn-secondary accclick" @click="changeStuff"> {{ userName }}</div>
-      <div v-else class="btn btn-secondary accclick">Welcome Newcommer!</div>
-    </div>
-    <Chat :authUser="userData" />
-    <div>
-      <button class="btn btn-primary logoutclick" @click="singOut">Logout</button>
+  <div class="container home">
+    <div class="col-md-auto">
+      <main>
+        <h1>Night Chat</h1>
+        <p>Welcome to the best night chat app in the world!</p>
+        <p>Chat is available from 21:00 to 9:00</p>
+        <p v-if="clock.timeOk" class="text-success">
+          <strong>
+            Your current time is
+            <br />
+            {{clock.hours}}h {{clock.minutes}}m {{clock.seconds}}s
+          </strong>
+        </p>
+        <p v-else class="text-danger">
+          <strong>
+            Your current time is
+            <br />
+            {{clock.hours}}h {{clock.minutes}}m {{clock.seconds}}s
+          </strong>
+        </p>
+        <button class="btn btn-primary" v-if="!store.isAuthenticated && clock.timeOk">
+          <router-link :to="{ name: 'Signup' }">Signup</router-link>
+        </button>
+        <button class="btn btn-primary" v-if="!store.isAuthenticated && clock.timeOk">
+          <router-link :to="{ name: 'Login' }">Login</router-link>
+        </button>
+      </main>
     </div>
   </div>
 </template>
 
 <script>
-import Chat from '@/components/Chat.vue'
+import store from "@/store.js";
+import clock from "../services/clock.js";
 
 export default {
-  name: 'home',
-  components: {
-    Chat,
-  },
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if(user){
-        this.userName = user.displayName;
-        this.userData = user;
-        this.LoggedIn = true;
-      } else{
-        this.logedIn = false;
-      }
-    })
-  },
   data() {
     return {
-      LoggedIn: false,
-      userName: '',
-      userData: {},
-    }
-  },
-  methods: {
-    async singOut() {
-      try{
-        const data = await firebase.auth().signOut();
-        this.$router.replace({name: "login"});
-      }catch(err){
-        console.log(err)
-      }
-    }
+      store,
+      clock
+    };
   }
-}
+};
 </script>
 
 <style>
-.accclick {
-  font-size: 1.5em;
-  cursor: default;
-}
-.logoutclick {
-  font-size: 1.5em;
-  margin: 20px
-}
-#header {
-  padding: 50px 0px 25px 0px;
+.home {
+  max-width: 500px;
+  text-align: center;
+  margin-top: 15%;
 }
 </style>
