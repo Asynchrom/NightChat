@@ -67,8 +67,8 @@ function checkUsername(user) {
                 if (doc.data().username.toUpperCase() == user.toUpperCase()) {
                     resolve(true);
                 };
-            });
-        }).then(resolve(false))
+            }).then(resolve(false))
+        })
     })
 }
 
