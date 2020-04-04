@@ -32,8 +32,8 @@ function updateDescription(username, description) {
             db.collection("users").doc(username).set({
                 description: description,
             }, { merge: true })
-            .then(resolve())
-            .catch(reject())
+            .then(() => resolve())
+            .catch(() => reject())
         })
     }
 }
@@ -56,7 +56,7 @@ function findRanks() {
                 }
             })
         })
-        .then(resolve(ranks))
+        .then(() => resolve(ranks))
     })
 }
 
@@ -67,8 +67,8 @@ function checkUsername(user) {
                 if (doc.data().username.toUpperCase() == user.toUpperCase()) {
                     resolve(true);
                 };
-            }).then(resolve(false))
-        })
+            })
+        }).then(() => resolve(false));
     })
 }
 
