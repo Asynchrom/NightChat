@@ -58,6 +58,7 @@ export default {
           .then(user => {
             user.user.updateProfile({
                   displayName: this.username,
+                  imageURL: ''
               })
               .then(() => {
                 db.collection("users").doc(this.username).set({
@@ -71,6 +72,8 @@ export default {
                 })
                   .then(() => {
                     store.userProfile = firebase.auth().currentUser;
+                    store.points = 0;
+                    this.$router.replace({ name: "Home" });
                   })
                   .catch(error => {
                     // TODO

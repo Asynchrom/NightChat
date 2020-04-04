@@ -18,6 +18,14 @@ function returnPoints(username){
     })
 }
 
+function returnType(username){
+    return new Promise((resolve, reject) => {
+        db.collection("users").doc(username).get().then( (user) => {
+            resolve(user.data().type)
+        });
+    })
+}
+
 function updateDescription(username, description) {
     if(username && description){
         return new Promise((resolve, reject) => {
@@ -32,12 +40,12 @@ function updateDescription(username, description) {
 
 function findRanks() {
     return new Promise((resolve, reject) => {
-        let ranks = [{points:0}];
+        let ranks = [{points:999999}];
         db.collection("users").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 let flag = false;
                 for(let i = 0; i<ranks.length; i++){
-                    if(doc.data().points < ranks[i].points){
+                    if(doc.data().points > ranks[i].points){
                         ranks.splice(i,0, {username: doc.data().username, points: doc.data().points, type: doc.data().type});
                         flag=true;
                         break;
@@ -53,17 +61,15 @@ function findRanks() {
 }
 
 function checkUsername(user) {
-    let isIn = false;
-    db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            if (doc.data().username.toUpperCase() == user.toUpperCase()) {
-                isIn = true;
-                return;
-            };
-        });
-    });
-    console.log(isIn);
-    return isIn;
+    return new Promise((resolve, reject) => {
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                if (doc.data().username.toUpperCase() == user.toUpperCase()) {
+                    resolve(true);
+                };
+            });
+        }).then(resolve(false))
+    })
 }
 
 export default {
@@ -71,5 +77,6 @@ export default {
     findCard, 
     updateDescription, 
     returnPoints, 
-    findRanks 
+    findRanks,
+    returnType
 };

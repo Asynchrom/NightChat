@@ -21,11 +21,10 @@
                 ></textarea>
                 <button
                   v-bind:disabled="saving"
-                  v-if="typed"
+                  v-if="typed && !saving"
                   v-on:click="update"
                   class="btn btn-secondary"
                 >Save</button>
-                <p v-if="saving">Processing...</p>
               </h6>
             </div>
             <!-- TODO <img
@@ -41,6 +40,7 @@
           <div class="card mb-3">
             <div class="card-header">Groups</div>
             <ul class="list-group list-group-flush">
+              <li class="list-group-item">Might be implemented in future.</li>
               <li v-for="group in this.user.groups" class="list-group-item">{{group}}</li>
             </ul>
           </div>
@@ -60,19 +60,20 @@ export default {
       typed: false,
       user: {},
       description: "",
-      saving: false
-    };
+      saving: false,
+    }
   },
 
   async created() {
     this.user = await checks.findCard(this.$route.params.username);
     this.description = this.user.description;
+    if(this.user.username != store.userProfile.displayName) this.saving = true;
   },
 
   methods: {
     async update() {
       this.saving = true;
-      await checks.updateDescription(this.user.username, this.description);
+      await checks.updateDescription(store.userProfile.displayName, this.description);
       this.saving = false;
     }
   }

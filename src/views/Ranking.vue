@@ -3,15 +3,14 @@
     <div class="bs-component">
       <div class="card mb-3">
         <h3 class="card-header">Top chatters</h3>
+        Earn points by being online!
         <ol class="list-group list-group-flush">
           <li v-for="(ranks, index) in rankings" class="list-group-item">
-            <router-link :to="{ name: 'User', params: {username: ranks.username}}"
-            >
-            <span class="rank">{{ doMath(index) }}</span>
-            <span v-bind:class="ranks.type" class="name">{{ranks.username}}</span>
-            <span class="points">{{ranks.points}}</span>
+            <router-link :to="{ name: 'User', params: {username: ranks.username}}">
+              <span class="rank">{{ index+1 }}</span>
+              <span v-bind:class="ranks.type" class="name">{{ranks.username}}</span>
+              <span class="points">{{ranks.points}}</span>
             </router-link>
-            
           </li>
         </ol>
       </div>
@@ -34,12 +33,6 @@ export default {
     ranks.shift();
     this.rankings = ranks;
   },
-
-  methods: {
-    doMath: function(index) {
-      return index + 1;
-    }
-  }
 };
 </script>
 

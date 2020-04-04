@@ -9,7 +9,6 @@ let clock = {
 }
 
 function updatePoints(){
-    console.log(store.points)
     db.collection("users").doc(store.userProfile.displayName).set({
         points: store.points++,
     }, { merge: true })

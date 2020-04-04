@@ -3,7 +3,7 @@
     <div class="col-md-auto">
       <main>
         <h1>Night Chat</h1>
-        <p>Welcome to the best night chat app in the world!</p>
+        <p>Welcome night traveler, are you ready for some chat  ?</p>
         <p>Chat is available from 21:00 to 9:00</p>
         <p v-if="clock.timeOk" class="text-success">
           <strong>
