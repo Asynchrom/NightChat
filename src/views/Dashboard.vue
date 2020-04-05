@@ -51,6 +51,7 @@ export default {
           photo: store.userProfile.photoURL,
           content: this.content,
           date: new Date().toString(),
+          time: new Date(),
           color: color
         });
         this.posting = false;
@@ -61,7 +62,7 @@ export default {
 
   created() {
     db.collection("posts")
-      .orderBy("date")
+      .orderBy("time")
       .onSnapshot(querySnapshot => {
         let allPosts = [];
         querySnapshot.forEach(doc => {
@@ -70,11 +71,12 @@ export default {
             photo: doc.data().photo,
             content: doc.data().content,
             date: doc.data().date,
-            color: doc.data().color
-          });
-        });
+            color: doc.data().color,
+            time: doc.data().time
+          })
+        })
         this.posts = allPosts;
-      });
+      })
   }
 };
 </script>

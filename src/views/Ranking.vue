@@ -49,6 +49,9 @@ export default {
 .red {
   color: #ee5f5b;
 }
+.green {
+  color: green;
+}
 .points {
   float: right;
 }
