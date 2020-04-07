@@ -28,10 +28,6 @@ const routes = [
     path: '/user/:username',
     name: 'User',
     component: () => import(/* webpackChunkName: "User" */ '../views/User.vue'),
-    // beforeEnter: (to, from, next) => {
-    //   if (to.params.username == store.userProfile.displayName) next()
-    //   else next({ name: 'Home' })
-    // },
     meta: { requiresAuth: true }
   },
   {
@@ -39,7 +35,7 @@ const routes = [
     name: 'Login',
     component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue'),
     beforeEnter: (to, from, next) => {
-      if (store.isAuthenticated || !clock.timeOk) next({ name: 'Home' })
+      if (store.isAuthenticated || !clock.timeOk) next({ name: 'Home' });
       else next()
     }
   },
@@ -64,7 +60,7 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.isAuthenticated) {
       next({ name: 'Login' })
