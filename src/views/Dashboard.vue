@@ -3,7 +3,6 @@
     <p class="group">Public</p>
     <div class="container chatbox">
       <div v-bind:class="post.color" class="chat-container" v-for="post in posts">
-        <!-- TODO <img src="" alt="Avatar" /> -->
         <p>{{post.content}}</p>
         <span class="moment">{{moment(post.date).fromNow()}}</span>
         
