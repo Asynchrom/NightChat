@@ -19,7 +19,7 @@
           <br />
           <input v-bind:disabled="disable" v-on:keyup.enter="login" type="password" v-model="password" />
         </p>
-        <p><router-link :to="{ name: 'Signup' }">I don't have an account</router-link></p>
+        <p><router-link :to="{ name: 'Signup' }">I don't have an account!</router-link></p>
         <button v-bind:disabled="disable" class="btn btn-primary" v-on:click="login">Submit</button>
       </main>
     </div>
