@@ -26,7 +26,7 @@
 
     <router-view />
     <footer>
-      <a href="https://github.com/vilaleon" target="_blank">@vilaleon</a>
+      <a href="https://github.com/Asynchrom" target="_blank">@Asynchrom</a>
     </footer>
   </div>
 </template>
